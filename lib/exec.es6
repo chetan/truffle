@@ -5,6 +5,7 @@ var vm = require("vm");
 
 var Pudding = require("ether-pudding");
 var PuddingLoader = require("ether-pudding/loader");
+var PuddingGenerator = require("ether-pudding/generator");
 
 var _ = require("lodash");
 
@@ -53,6 +54,7 @@ var Exec = {
 
       // Create a sandbox that looks just like the global scope.
       sandbox = _.merge(sandbox, global, {
+        config: { app: config.app, environments: config.environments },
         web3: config.web3,
         Pudding: Pudding,
         process: new_process,
@@ -64,6 +66,11 @@ var Exec = {
           } else {
             return require(name);
           }
+        },
+        write_contract: function(contract) {
+          var classes = {};
+          classes[contract.contract_name] = contract;
+          PuddingGenerator.save(classes, config.environments.current.directory, {removeExisting: false});
         },
         module: m,
         __filename: file,
