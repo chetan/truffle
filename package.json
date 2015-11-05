@@ -1,7 +1,7 @@
 {
   "name": "truffle",
   "namespace": "consensys",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "truffle - Simple development framework for Ethereum",
   "dependencies": {
     "async": "^1.4.2",
@@ -24,20 +24,38 @@
     "node-sass": "^3.3.3",
     "rimraf": "^2.4.3",
     "serve-static": "^1.10.0",
-    "solc": "^0.1.5",
+    "solc": "^0.1.6",
     "uglify-js": "^2.5.0",
     "web3": "0.14.0",
     "yargs": "^3.27.0",
     "temp": "^0.8.3"
   },
   "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.5",
+    "temp": "*"
   },
   "bin": {
-    "truffle": "./truffle.bash",
+    "truffle": "./dist/truffle.js",
     "truffle-exec": "./truffle-exec.bash"
   },
+  "files": [
+    "config",
+    "contracts",
+    "dist",
+    "example",
+    "lib",
+    "test",
+    "gulpfile.js",
+    "test.bash",
+    "truffle-exec.bash",
+    "truffle.es6"
+  ],
   "scripts": {
-    "test": "./test.bash"
+    "test": "./test.bash",
+    "prepublish": "gulp"
   },
   "repository": {
     "type": "git",
@@ -54,5 +72,6 @@
       "email": "tim@timothyjcoulter.com",
       "url": "https://github.com/tcoulter"
     }
-  ]
+  ],
+  "license": "MIT"
 }
