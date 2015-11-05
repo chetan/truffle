@@ -6,7 +6,7 @@ fi
 
 if [ -z "$TRUFFLE_NPM_LOCATION" ];
 then
-  export TRUFFLE_NPM_LOCATION=$(npm config --global get prefix)/lib/node_modules/truffle/
+  export TRUFFLE_NPM_LOCATION=$(dirname $(readlink -f $0))
 fi
 
 # Hack. babel-node will clobber -e, and it doesn't look like `--` will stop it.
@@ -17,4 +17,8 @@ args=${args// -e=/ --environment=}
 args=${args// -environment/ --environment}
 
 cd $TRUFFLE_NPM_LOCATION
-$TRUFFLE_NPM_LOCATION/node_modules/.bin/babel-node -- $TRUFFLE_NPM_LOCATION/truffle.es6 exec ${args}
+if [[ -d $TRUFFLE_NPM_LOCATION/dist ]]; then
+  exec node $TRUFFLE_NPM_LOCATION/dist/truffle.js exec ${args}
+else
+  exec $TRUFFLE_NPM_LOCATION/node_modules/.bin/babel-node -- $TRUFFLE_NPM_LOCATION/truffle.es6 exec ${args}
+fi

@@ -1,4 +1,4 @@
-#!/usr/bin/env ./node_modules/.bin/babel-node
+#!/usr/bin/env node
 require("coffee-script/register");
 
 var web3 = require("web3");
@@ -20,8 +20,8 @@ var Serve = require("./lib/serve");
 var ConfigurationError = require("./lib/errors/configurationerror");
 var ExtendableError = require("./lib/errors/extendableerror");
 
-var truffle_dir = process.env.TRUFFLE_NPM_LOCATION;
-var working_dir = process.env.TRUFFLE_WORKING_DIRECTORY;
+var truffle_dir = process.env.TRUFFLE_NPM_LOCATION || path.resolve(__dirname, "..");
+var working_dir = process.env.TRUFFLE_WORKING_DIRECTORY || process.cwd();
 
 if (working_dir[working_dir.length - 1] != "/") {
   working_dir += "/";
